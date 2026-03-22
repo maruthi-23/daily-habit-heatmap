@@ -9,6 +9,8 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  // Expose all VITE_* env vars to the browser bundle
+  envPrefix: 'VITE_',
   server: {
     port: 3000,
     proxy: {
