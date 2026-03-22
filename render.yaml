@@ -9,10 +9,18 @@ services:
     envVars:
       - key: PORT
         value: 8080
-      - key: DB_URL
+      - key: DB_HOST
         fromDatabase:
           name: habitmap-db
-          property: connectionString
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: habitmap-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: habitmap-db
+          property: database
       - key: DB_USERNAME
         fromDatabase:
           name: habitmap-db
@@ -24,7 +32,7 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: CORS_ORIGINS
-        sync: false        # set this manually in Render dashboard after frontend is deployed
+        sync: false        # set this to your Netlify URL after frontend deploys
 
 databases:
   - name: habitmap-db
