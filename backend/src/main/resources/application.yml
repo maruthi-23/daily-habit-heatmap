@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: habitmap-backend
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/habitmap}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:strongpassword123}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    open-in-view: false
+
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone: UTC
+
+server:
+  port: ${PORT:8084}
+  error:
+    include-message: always
+    include-binding-errors: always
+
+jwt:
+  secret: ${JWT_SECRET:c2VjcmV0a2V5Zm9yaGFiaXRtYXBhcHBsaWNhdGlvbjIwMjQ=}
+  access-token-expiry: 900000       # 15 minutes
+  refresh-token-expiry: 604800000   # 7 days
+
+cors:
+  allowed-origins: ${CORS_ORIGINS:http://localhost:3000,http://localhost:5173}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.habitmap: DEBUG
+    org.springframework.security: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
